@@ -17,10 +17,11 @@ I repurposed my old gaming rig to be a Windows gaming VM for the kids and a Linu
 **Preparation:**
 1. Update the BIOS to latest version: 3603.
 2. Enable virtualization in the BIOS (there is no IOMMU/VT-d option, this seems to include it).
-3. Depending on your setup, might have to force the iGPU to be primary display unless you pass through the GPU in second PCIex 16 slot.
+3. Force the iGPU to be primary display.
 4. Get a non K Sandy Bridge or Ivy Bridge CPU (got an i5-3470 to replace the i5-2500K).
 
-**Linux:**
+
+**Installation:**
 1. Install Ubuntu 18.04 LTS Server beta. I added SSH and SMB in the installation options.
 2. Edit `/etc/defaults/grub` and change the **GRUB_CMDLINE_LINUX_DEFAULT** entry to:
 ```
@@ -108,7 +109,15 @@ vfio_pci ids=1002:699f,1002:aae0
 ```
 11. Install virtualization packages ```sudo apt-get install qemu-kvm libvirt-bin ovmf```.
 12. Depending on your needs/storage create the VM. I was lazy and used the virt-manager GUI from my Ubuntu workstation.
-13. Add the PCI devices to pass through to the VM. These are the ids following the IOMMU group number from step 5, in my case GPU: ```01:00.0``` and GPU Audio: ```01:00.1```. For some reasons, there is a PCI Bridge in the same IOMMU group that can't be passed through and KVM isn't complaining about it. I also passed through the Intel USB controller in Group 5, id: ```00:1a.0```, this is the row of USB ports next to the USB3/eSata ports on the motherboard.
-14. Fire up VM, install Windows, configure it.
-15. ?????
-16. Profit!
+13. Set the firmware to OVMF.
+14. Add the PCI devices to pass through to the VM. These are the ids following the IOMMU group number from step 5, in my case GPU: ```01:00.0``` and GPU Audio: ```01:00.1```. For some reasons, there is a PCI Bridge in the same IOMMU group that can't be passed through and KVM isn't complaining about it. I also passed through the Intel USB controller in Group 5, id: ```00:1a.0```, this is the row of USB ports next to the USB3/eSata ports on the io panel of the motherboard.
+15. Plug a screen on the GPU passed through and fire up VM. You should see the TianoCore boot splash screen on the monitor.
+16. Install/Configure Windows.
+16. ?????
+17. Profit!
+
+
+**Observations:***
+1. BIOS doesn't mention a word about IOMMU/VT-d, yet enabling Virtualization in the CPU tab seems to enable it.
+2. Putting the GPU in the second PCIex 16 slot for passthrough will need ACS. The GPU ends up grouped with a bunch of chipset devices.
+3. ASMedia controllers can be passed through to give the VM a USB3 controller.
