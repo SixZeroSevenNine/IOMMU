@@ -11,14 +11,14 @@ I repurposed my old gaming rig to be a Windows gaming VM for the kids and a Linu
 - 20 GB Intel SLC SSD for Linux host.
 - 120 GB Intel MLC SSD for Windows guest.
 - 16 GB of RAM, 10 allocated to guest.
-- 4 x 1 TB hard drive for NAS role.
+- 4 x 1 TB hard drive for NAS role (mdadm, RAID6).
 
 
 **Preparation:**
 1. Update the BIOS to latest version: 3603.
 2. Enable virtualization in the BIOS (there is no IOMMU/VT-d option, this seems to include it).
 3. Depending on your setup, might have to force the iGPU to be primary display unless you pass through the GPU in second PCIex 16 slot.
-4. Get a non K Sandy Bridge or Ivy Bridge CPU (got an i5-3470 to replace the 2500K).
+4. Get a non K Sandy Bridge or Ivy Bridge CPU (got an i5-3470 to replace the i5-2500K).
 
 **Linux:**
 1. Install Ubuntu 18.04 LTS Server beta. I added SSH and SMB in the installation options.
@@ -61,7 +61,7 @@ IOMMU Group 7 00:1c.0 PCI bridge [0604]: Intel Corporation 6 Series/C200 Series 
 IOMMU Group 8 00:1c.4 PCI bridge [0604]: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 5 [8086:1c18] (rev b5)
 IOMMU Group 9 00:1c.5 PCI bridge [0604]: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 6 [8086:1c1a] (rev b5)
 ```
-6. Identify the PCI device id's of the devices to be passed through the host, in my case the GPU (group 1, ids: ```1002:699f, 1002:aae0```. These devices will be reserved by vfio to prevent the host from using them.
+6. Identify the PCI device id's of the devices (GPU + HDMI Audio of the GPU) to be passed through the host, in my case the GPU in IOMMU group, ids: ```1002:699f, 1002:aae0```. These devices will be reserved by vfio to prevent the host from using them.
 7. Edit `/etc/initramfs-tools/modules` to have vfio linux driver latch on to the GPU that is passed through. Add these lines:
 ```
 softdep amdgpu pre: vfio vfio_pci
@@ -78,3 +78,37 @@ vfio
 vfio_iommu_type1
 vfio_pci ids=1002:699f,1002:aae0
 ```
+9. Reboot.
+10. Verify that vfio reserved the devices with ```lspci -vnn```. Find in the wall of text the GPU passed through (same for HDMI audio part), look out for the lines ```Kernel driver in use: vfio-pci```. Outpus should be something like:
+```
+01:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [AMD/ATI] Polaris12 [1002:699f] (rev c7) (prog-if 00 [VGA controller])
+        Subsystem: ASUSTeK Computer Inc. Lexa PRO [Radeon RX 550] [1043:0511]
+        Flags: bus master, fast devsel, latency 0, IRQ 41
+        Memory at e0000000 (64-bit, prefetchable) [size=256M]
+        Memory at f0000000 (64-bit, prefetchable) [size=2M]
+        I/O ports at e000 [size=256]
+        Memory at f7b00000 (32-bit, non-prefetchable) [size=256K]
+        Expansion ROM at f7b40000 [disabled] [size=128K]
+        Capabilities: [48] Vendor Specific Information: Len=08 <?>
+        Capabilities: [50] Power Management version 3
+        Capabilities: [58] Express Legacy Endpoint, MSI 00
+        Capabilities: [a0] MSI: Enable+ Count=1/1 Maskable- 64bit+
+        Capabilities: [100] Vendor Specific Information: ID=0001 Rev=1 Len=010 <?>
+        Capabilities: [150] Advanced Error Reporting
+        Capabilities: [200] #15
+        Capabilities: [270] #19
+        Capabilities: [2b0] Address Translation Service (ATS)
+        Capabilities: [2c0] Page Request Interface (PRI)
+        Capabilities: [2d0] Process Address Space ID (PASID)
+        Capabilities: [320] Latency Tolerance Reporting
+        Capabilities: [328] Alternative Routing-ID Interpretation (ARI)
+        Capabilities: [370] L1 PM Substates
+        Kernel driver in use: vfio-pci
+        Kernel modules: amdgpu
+```
+11. Install virtualization packages ```sudo apt-get install qemu-kvm libvirt-bin ovmf```.
+12. Depending on your needs/storage create the VM. I was lazy and used the virt-manager GUI from my Ubuntu workstation.
+13. Add the PCI devices to pass through to the VM. These are the ids following the IOMMU group number from step 5, in my case GPU: ```01:00.0``` and GPU Audio: ```01:00.1```. For some reasons, there is a PCI Bridge in the same IOMMU group that can't be passed through and KVM isn't complaining about it. I also passed through the Intel USB controller in Group 5, id: ```00:1a.0```, this is the row of USB ports next to the USB3/eSata ports on the motherboard.
+14. Fire up VM, install Windows, configure it.
+15. ?????
+16. Profit!
