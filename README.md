@@ -1,11 +1,11 @@
-# IOMMU on ASUS Maximus IV Gene-Z on Ubuntu 18.04
+# IOMMU with ASUS Maximus IV Gene-Z on Ubuntu 18.04
 
 
 I repurposed my old gaming rig to be a Windows gaming VM for the kids and a Linux server at the same time.
 
 
 **Hardware:**
-- ASUS Maximus IV Gene-Z motherboard.
+- ASUS Maximus IV Gene-Z motherboard (Sandy Bridge and Ivy Bridge era).
 - Intel i5-3470 CPU (1 core for server, 3 for guest).
 - ASUS Radeon RX 550 for host GPU.
 - 20 GB Intel SLC SSD for Linux host.
@@ -121,3 +121,10 @@ vfio_pci ids=1002:699f,1002:aae0
 1. BIOS doesn't mention a word about IOMMU/VT-d, yet enabling Virtualization in the CPU tab seems to enable it.
 2. Putting the GPU in the second PCIex 16 slot for passthrough will need ACS. The GPU ends up grouped with a bunch of chipset devices.
 3. ASMedia controllers can be passed through to give the VM a USB3 controller.
+
+
+**References:**
+- [Mathias Hueber](http://mathiashueber.com/amd-ryzen-based-passthrough-setup-between-xubuntu-16-04-and-windows-10/)
+- [Level1Techs](https://level1techs.com/article/ryzen-gpu-passthrough-setup-guide-fedora-26-windows-gaming-linux)
+- [Ubuntu Wiki](https://help.ubuntu.com/community/KVM)
+- [Reddit user djgizmo](https://www.reddit.com/r/virtualization/comments/4bsnob/just_a_fyi_the_asus_maximus_iv_genez_supports_vtd/)
