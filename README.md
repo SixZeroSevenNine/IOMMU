@@ -14,11 +14,15 @@ I repurposed my old gaming rig to be a Windows gaming VM for the kids and a Linu
 - 4 x 1 TB hard drive for NAS role (mdadm, RAID6).
 
 
+
+
 **Preparation:**
 1. Update the BIOS to latest version: 3603.
 2. Enable virtualization in the BIOS (there is no IOMMU/VT-d option, this seems to include it).
 3. Force the iGPU to be primary display.
 4. Get a non K Sandy Bridge or Ivy Bridge CPU (got an i5-3470 to replace the i5-2500K).
+
+
 
 
 **Installation:**
@@ -117,10 +121,14 @@ vfio_pci ids=1002:699f,1002:aae0
 17. Profit!
 
 
+
+
 **Observations:***
 1. BIOS doesn't mention a word about IOMMU/VT-d, yet enabling Virtualization in the CPU tab seems to enable it.
 2. Putting the GPU in the second PCIex 16 slot for passthrough will need ACS. The GPU ends up grouped with a bunch of chipset devices.
 3. ASMedia controllers can be passed through to give the VM a USB3 controller.
+
+
 
 
 **References:**
