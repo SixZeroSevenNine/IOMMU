@@ -28,8 +28,7 @@ I repurposed my old gaming rig to be a Windows gaming VM for the kids and a Linu
 quiet iommu=1 intel_iommu=on video=vesafb:off,efifb:off
 ```
 3. Execute ```update-grub``` and reboot.
-4. Using this tiny script, get the IOMMU groups:
-5. Gather IOMMU groups using this tiny script:
+4. Gather IOMMU groups using this tiny script:
 ```
 #!/bin/bash
 for d in /sys/kernel/iommu_groups/*/devices/*; do
@@ -62,8 +61,8 @@ IOMMU Group 7 00:1c.0 PCI bridge [0604]: Intel Corporation 6 Series/C200 Series 
 IOMMU Group 8 00:1c.4 PCI bridge [0604]: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 5 [8086:1c18] (rev b5)
 IOMMU Group 9 00:1c.5 PCI bridge [0604]: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 6 [8086:1c1a] (rev b5)
 ```
-6. Identify the PCI device id's of the devices (GPU + HDMI Audio of the GPU) to be passed through the host, in my case the GPU in IOMMU group, ids: ```1002:699f, 1002:aae0```. These devices will be reserved by vfio to prevent the host from using them.
-7. Edit `/etc/initramfs-tools/modules` to have vfio linux driver latch on to the GPU that is passed through. Add these lines:
+5. Identify the PCI device id's of the devices (GPU + HDMI Audio of the GPU) to be passed through the host, in my case the GPU in IOMMU group, ids: ```1002:699f, 1002:aae0```. These devices will be reserved by vfio to prevent the host from using them.
+6. Edit `/etc/initramfs-tools/modules` to have vfio linux driver latch on to the GPU that is passed through. Add these lines:
 ```
 softdep amdgpu pre: vfio vfio_pci
 
@@ -73,14 +72,14 @@ vfio_virqfd
 options vfio_pci ids=1002:699f,1002:aae0
 vfio_pci ids=1002:699f,1002:aae0
 ```
-8. Edit `/etc/modules` to add these lines:
+7. Edit `/etc/modules` to add these lines:
 ```
 vfio
 vfio_iommu_type1
 vfio_pci ids=1002:699f,1002:aae0
 ```
-9. Reboot.
-10. Verify that vfio reserved the devices with ```lspci -vnn```. Find in the wall of text the GPU passed through (same for HDMI audio part), look out for the lines ```Kernel driver in use: vfio-pci```. Outpus should be something like:
+8. Execute ```update-initramfs -u -k all``` and reboot.
+9. Verify that vfio reserved the devices with ```lspci -vnn```. Find in the wall of text the GPU passed through (same for HDMI audio part), look out for the lines ```Kernel driver in use: vfio-pci```. Outpus should be something like:
 ```
 01:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [AMD/ATI] Polaris12 [1002:699f] (rev c7) (prog-if 00 [VGA controller])
         Subsystem: ASUSTeK Computer Inc. Lexa PRO [Radeon RX 550] [1043:0511]
@@ -107,12 +106,12 @@ vfio_pci ids=1002:699f,1002:aae0
         Kernel driver in use: vfio-pci
         Kernel modules: amdgpu
 ```
-11. Install virtualization packages ```sudo apt-get install qemu-kvm libvirt-bin ovmf```.
-12. Depending on your needs/storage create the VM with corresponding storage sizes/types. I was lazy and used the virt-manager GUI from my Ubuntu workstation.
-13. Set the firmware to OVMF.
-14. Add the PCI devices to pass through to the VM. These are the ids following the IOMMU group number from step 5, in my case GPU: ```01:00.0``` and GPU Audio: ```01:00.1```. For some reasons, there is a PCI Bridge in the same IOMMU group that can't be passed through and KVM isn't complaining about it. I also passed through the Intel USB controller in Group 5, id: ```00:1a.0```, this is the row of USB ports next to the USB3/eSata ports on the io panel of the motherboard.
-15. Plug a screen on the GPU passed through and fire up VM. You should see the TianoCore boot splash screen on the monitor.
-16. Install/Configure Windows.
+10. Install virtualization packages ```sudo apt-get install qemu-kvm libvirt-bin ovmf```.
+11. Depending on your needs/storage create the VM with corresponding storage sizes/types. I was lazy and used the virt-manager GUI from my Ubuntu workstation.
+12. Set the firmware to OVMF.
+13. Add the PCI devices to pass through to the VM. These are the ids following the IOMMU group number from step 5, in my case GPU: ```01:00.0``` and GPU Audio: ```01:00.1```. For some reasons, there is a PCI Bridge in the same IOMMU group that can't be passed through and KVM isn't complaining about it. I also passed through the Intel USB controller in Group 5, id: ```00:1a.0```, this is the row of USB ports next to the USB3/eSata ports on the io panel of the motherboard.
+14. Plug a screen on the GPU passed through and fire up VM. You should see the TianoCore boot splash screen on the monitor.
+15. Install/Configure Windows.
 16. ?????
 17. Profit!
 
