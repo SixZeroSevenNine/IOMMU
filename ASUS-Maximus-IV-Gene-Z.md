@@ -123,7 +123,7 @@ vfio_pci ids=1002:699f,1002:aae0
 
 
 **References:**
-- [Mathias Hueber](http://mathiashueber.com/amd-ryzen-based-passthrough-setup-between-xubuntu-16-04-and-windows-10/)
-- [Level1Techs](https://level1techs.com/article/ryzen-gpu-passthrough-setup-guide-fedora-26-windows-gaming-linux)
+- [Mathias Hueber's awesome guide](http://mathiashueber.com/amd-ryzen-based-passthrough-setup-between-xubuntu-16-04-and-windows-10/)
+- [Level1Techs' guide](https://level1techs.com/article/ryzen-gpu-passthrough-setup-guide-fedora-26-windows-gaming-linux)
 - [Ubuntu Wiki](https://help.ubuntu.com/community/KVM)
 - [Reddit user djgizmo](https://www.reddit.com/r/virtualization/comments/4bsnob/just_a_fyi_the_asus_maximus_iv_genez_supports_vtd/)
