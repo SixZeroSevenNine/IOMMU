@@ -27,7 +27,7 @@ I repurposed my old gaming rig to be a Windows gaming VM for the kids and a Linu
 ```
 quiet iommu=1 intel_iommu=on video=vesafb:off,efifb:off
 ```
-3. Reboot.
+3. Execute ```update-grub``` and reboot.
 4. Using this tiny script, get the IOMMU groups:
 5. Gather IOMMU groups using this tiny script:
 ```
