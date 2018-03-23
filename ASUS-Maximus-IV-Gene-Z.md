@@ -6,8 +6,8 @@ I repurposed my old gaming rig to be a Windows gaming VM for the kids and a Linu
 
 **Hardware:**
 - ASUS Maximus IV Gene-Z motherboard (Sandy Bridge and Ivy Bridge era).
-- Intel i5-3470 CPU (1 core for server, 3 for guest).
-- ASUS Radeon RX 550 for host GPU.
+- Intel i5-3470 CPU (1 core for server, 3 for guest), iGPU for host.
+- ASUS Radeon RX 550 for guest GPU.
 - 20 GB Intel SLC SSD for Linux host.
 - 120 GB Intel MLC SSD for Windows guest.
 - 16 GB of RAM, 10 allocated to guest.
