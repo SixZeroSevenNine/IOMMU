@@ -109,7 +109,7 @@ vfio_pci ids=1002:699f,1002:aae0
 10. Install virtualization packages ```sudo apt-get install qemu-kvm libvirt-bin ovmf```.
 11. Depending on your needs and available storage, create the VM with corresponding storage sizes/types. I was lazy and used the virt-manager GUI from my Ubuntu workstation.
 12. Set the firmware to OVMF.
-13. Add the PCI devices to pass through to the VM. These are the ids following the IOMMU group number from step 5, in my case GPU: ```01:00.0``` and GPU Audio: ```01:00.1```. For some reasons, there is a PCI Bridge in the same IOMMU group that can't be passed through and KVM isn't complaining about it. I also passed through the Intel USB controller in Group 5, id: ```00:1a.0```, this is the row of USB ports next to the USB3/eSata ports on the io panel of the motherboard.
+13. Add the PCI devices to pass through to the VM. These are the ids following the IOMMU group number from step 5, in my case GPU: ```01:00.0``` and GPU Audio: ```01:00.1```. For some reasons, there is a PCI Bridge in the same IOMMU group. This PCI bridge can't be passed through but KVM isn't complaining about it. I also passed through the Intel USB controller in Group 5, id: ```00:1a.0```, this is the row of USB ports next to the USB3/eSata ports on the io panel of the motherboard.
 14. Plug a screen on the GPU that was passed through and fire up VM. You should see the TianoCore boot splash screen on the monitor.
 15. Install/Configure Windows.
 16. ?????
