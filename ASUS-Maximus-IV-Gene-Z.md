@@ -16,7 +16,7 @@ I repurposed my old gaming rig to be a Windows gaming VM for the kids and a Linu
 
 **Preparation:**
 1. Update the BIOS to latest version: 3603.
-2. Enable virtualization in the BIOS (there is no IOMMU/VT-d option, this seems to include it).
+2. Enable virtualization in the BIOS (there is no IOMMU/VT-d option, "Intel(R) Virtualization Technology" option in CPU tab seems to include it).
 3. Force the iGPU to be primary display.
 4. Get a non K Sandy Bridge or Ivy Bridge CPU (I got an i5-3470 to replace the i5-2500K).
 
