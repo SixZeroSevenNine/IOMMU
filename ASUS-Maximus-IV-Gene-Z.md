@@ -119,7 +119,9 @@ vfio_pci ids=1002:699f,1002:aae0
 **Observations:**
 1. BIOS doesn't mention a word about IOMMU/VT-d, yet enabling the * *Intel(R) Virtualization Technology* * in the CPU options seems to enable it.
 2. Putting the GPU in the second PCIex 16 slot for passthrough will need ACS. The GPU ends up grouped with a bunch of chipset devices.
-3. ASMedia controllers can be passed through to give the VM a USB3 controller.
+3. Using my monitor's USB hub for keyboard/mouse doesn't work after monitor goes into sleep and wakes up. Mouse is dead and keyboard events are sent to both host and guest.
+4. For some reason (probably no MessageSignaledInterrupt support) I couldn't get the HDMI audio of the RX 550 working, even with registry hacks. Passing throught he onboard HD Audio controller in IOMMU group 6 worked fine.
+5. ASMedia USB3 controllers (front panel and/or IO panel ports) can be passed through, and work fine.
 
 
 **References:**
