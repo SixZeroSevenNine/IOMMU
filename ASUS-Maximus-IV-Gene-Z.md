@@ -23,7 +23,7 @@ I repurposed my old gaming rig to be a Windows gaming VM for the kids and a Linu
 
 **Installation:**
 1. Install Ubuntu 18.04 LTS Server beta. I added SSH and SMB in the installation options.
-2. Edit `/etc/defaults/grub` and change the **GRUB_CMDLINE_LINUX_DEFAULT** entry to:
+2. Edit `/etc/default/grub` and change the **GRUB_CMDLINE_LINUX_DEFAULT** entry to:
 ```
 quiet iommu=1 intel_iommu=on video=vesafb:off,efifb:off
 ```
