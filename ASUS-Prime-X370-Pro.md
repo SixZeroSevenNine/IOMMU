@@ -145,7 +145,7 @@ vfio_pci ids=10de:13c2,10de:0fbb,1002:67df,1002:aaf0
 16. ?????
 17. Profit? Not yet. Dreaded code 43 after driver installation in the Windows VM using the GTX 970, NVidia doesn't want you to virtualize their gaming GPUs. Solution, ```virsh edit <VMName>``` and modify the XML. Important parts are  hidden state and vendor_id. They lie to the guest and trick the NVidia driver to load. 
 ```
-<features>
+  <features>
     <acpi/>
     <apic/>
     <hyperv>
