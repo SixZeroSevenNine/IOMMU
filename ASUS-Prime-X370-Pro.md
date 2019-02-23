@@ -160,7 +160,7 @@ vfio_pci ids=10de:13c2,10de:0fbb,1002:67df,1002:aaf0
     <vmport state='off'/>
   </features>
 ```
-18. Profit? Not yet, gmd3 doesn't fire up the host GPU (in last PCI x16 slot, shared with chipset). Remove Gmd3, replace it with LighDM. Then add GPU config in ```/usr/share/X11/xorg.conf.d``` by creating a file with (I called mine 99-hack.conf). This will let X11/gnome3/lightdm use the 3d GPU.
+18. Profit? Not yet, gmd3 doesn't fire up the host GPU (in the last PCI x16 slot, shared with chipset). Remove Gmd3, replace it with LighDM. Then add GPU config in ```/usr/share/X11/xorg.conf.d``` by creating a file with (I called mine 99-hack.conf). This will let X11/gnome3/lightdm use the 3d GPU.
 ```
 Section "Device"
     Identifier     "Device0"
@@ -194,4 +194,3 @@ EndSection
 - [Mathias Hueber's awesome guide](http://mathiashueber.com/amd-ryzen-based-passthrough-setup-between-xubuntu-16-04-and-windows-10/)
 - [Level1Techs' guide](https://level1techs.com/article/ryzen-gpu-passthrough-setup-guide-fedora-26-windows-gaming-linux)
 - [Ubuntu Wiki](https://help.ubuntu.com/community/KVM)
-- [Reddit user djgizmo](https://www.reddit.com/r/virtualization/comments/4bsnob/just_a_fyi_the_asus_maximus_iv_genez_supports_vtd/)
