@@ -165,8 +165,8 @@ vfio_pci ids=10de:13c2,10de:0fbb,1002:67df,1002:aaf0
 Section "Device"
     Identifier     "Device0"
     Driver         "amdgpu"
-    VendorName     "AMD Corporation"
-    BoardName      "AMD Tertiary"
+    VendorName     "AMD"
+    BoardName      "ASUS RX 550"
     BusID          "PCI:4:0:0"
 EndSection
 ```
