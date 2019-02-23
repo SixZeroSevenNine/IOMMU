@@ -1,6 +1,6 @@
 # The ultimate Linux Workstation?
 
-My ASUS Maximus IV Gene-Z system was repurposed for pure file server purposes (FreeNAS) so I moved my kids VM to my gaming rig. I also needed another gaming rig so that 2.0 and 3.0 can play with me Minecraft.
+My ASUS Maximus IV Gene-Z system was repurposed for pure file server purposes (FreeNAS) so I moved my kids VM to my gaming rig. I also needed another gaming rig so that 2.0 and 3.0 can play Minecraft with me.
 
 **Goals:**
 - Three Minecraft Java version capable rigs.
