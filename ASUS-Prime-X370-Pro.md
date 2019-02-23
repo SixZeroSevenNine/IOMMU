@@ -95,7 +95,7 @@ IOMMU Group 7 00:04.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Fam
 IOMMU Group 8 00:07.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) PCIe Dummy Host Bridge [1022:1452]
 IOMMU Group 9 00:07.1 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-0fh) Internal PCIe GPP Bridge 0 to Bus B [1022:1454]
 ```
-5. Identify the PCI device id's of the devices (GPU + HDMI Audio of the GPU) to be passed through the host, in my case the GPU in IOMMU group, ids: ```1002:699f, 1002:aae0```. These devices will be reserved by vfio to prevent the host from using them.
+5. Identify the PCI device id's of the devices (GPU + HDMI Audio of the GPU) to be passed through the host, in my case the GPU in IOMMU group, ids: ```10de:13c2,10de:0fbb,1002:67df,1002:aaf0```. These devices will be reserved by vfio to prevent the host from using them.
 6. Edit `/etc/initramfs-tools/modules` to have vfio linux driver latch on to the GPU that is passed through. Add these lines:
 ```
 softdep nouveau pre: vfio vfio_pci
