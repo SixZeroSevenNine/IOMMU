@@ -14,9 +14,9 @@ My ASUS Maximus IV Gene-Z system was repurposed for pure file server purposes (F
 **Hardware:**
 - ASUS Prime X370 Pro motherboard.
 - Ryzen 7 1700X + 32 GB RAM.
-- ASUS Radeon RX 550 for host GPU, used as workstation and as Minecraft play station.
-- Gigabyte Radeon RX 570 4GB for Windows gaming VM#1.
-- ASUS Strix GTX 970 for Windows gaming VM#2.
+- PCI x16 slot 1: Gigabyte Radeon RX 570 4GB for Windows gaming VM#1.
+- PCI x16 slot 2: ASUS Strix GTX 970 for Windows gaming VM#2.
+- PCI x16 slot 3: ASUS Radeon RX 550 for host GPU, used as workstation and as Minecraft play station.
 - 256 GB Intel NVME SSD for KVM and workstation duties.
 - 256 GB Samsung SSD for gaming VM#1.
 - 256 GB Samsung SSD for gaming VM#2 OS.
@@ -180,6 +180,7 @@ EndSection
 3. If MSI registry hack doesn't solve HDMI audio for one VM, the soundcard on motherboard can be passed through fine.
 4. Using a monitor's USB hub for keyboard/mouse doesn't work after monitor goes into sleep and wakes up. Mouse is dead and keyboard events are sent to both host and guest.
 5. VMs can be shut down and restarted without issues, didn't notice and PCI reset issues with the Gigabyte RX 570 nor the ASUS Strix GTX 970.
+6. The ASUS Strix GTX 970 doesn't appreciate being in the first PCI x16 slot. I was unable to get it passed through even when blacklisting every possible NVidia driver using it. AMD GPUs don't seem to have these issues. Even though cooling is not optimal, I had no choice but to leave the NVidia GPU in slot 2.
 
 
 **Future changes:**
