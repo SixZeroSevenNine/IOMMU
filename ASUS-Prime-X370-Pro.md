@@ -28,7 +28,7 @@ My ASUS Maximus IV Gene-Z system was repurposed for pure file server purposes (F
 
 **Preparation:**
 1. Update the BIOS to latest version.
-2. Enable virtualization in the BIOS: IOMMU in the AMD CBS sub menu.
+2. Enable virtualization in the BIOS: IOMMU in the AMD CBS sub menu and SVM in the CPU sub menu.
 3. PCI x16 speed for 3d full sized slot should be forced to 4X instead of auto or 2X if system isn't seeing the 3d GPU.
 
 
