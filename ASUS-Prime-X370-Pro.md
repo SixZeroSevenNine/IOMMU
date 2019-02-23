@@ -2,12 +2,14 @@
 
 My ASUS Maximus IV Gene-Z system was repurposed for pure file server purposes (FreeNAS) so I moved my kids VM to my gaming rig. I also needed another gaming rig so that 2.0 and 3.0 can play Minecraft with me.
 
+
 **Goals:**
 - Three Minecraft Java version capable rigs.
 - A powerful gaming rig.
 - A powerful Linux workstation.
 - File serving capability as backup for FreeNAS rig.
 - Has to fit in one case, one PC.
+
 
 **Hardware:**
 - ASUS Prime X370 Pro motherboard.
@@ -23,9 +25,11 @@ My ASUS Maximus IV Gene-Z system was repurposed for pure file server purposes (F
 - Seasonic Platinum 850W PSU.
 - Be Quiet! Dark Base Pro 700 case.
 
+
 **Preparation:**
 1. Update the BIOS to latest version.
 2. Enable virtualization in the BIOS: IOMMU and SVT.
+
 
 **Installation:**
 1. Install Ubuntu 18.10 Workstation. I added SSH and SMB in the installation options.
@@ -169,6 +173,7 @@ EndSection
 18. Profit? Not yet, some Windows guests might not have HDMI audio out. Identify the Device Instance Path from the Details tab of the device in Device Manager.  Run regedit and find the same path under HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\  After following down the tree using the Device Instance Path information, continue to follow down through "Device Parameters" and "Interrupt Management".  Here you will find that you either have or need to create a new key named "MessageSignaledInterruptProperties".  Within that key, find or create a DWORD value named "MSISupported".  The value should be 1 enable MSI or 0 to disable. Enabling MSI should fix HDMI audio out issues.
 19. Profit? Hell yea!
 
+
 **Observations:**
 1. BIOS updates can change IOMMU groupings, updates can mess up passthrough.
 2. There is one single USB controller that is in its own IOMMU group, for other VMS, USB redirection works fine.
@@ -176,9 +181,12 @@ EndSection
 4. Using a monitor's USB hub for keyboard/mouse doesn't work after monitor goes into sleep and wakes up. Mouse is dead and keyboard events are sent to both host and guest.
 5. VMs can be shut down and restarted without issues, didn't notice and PCI reset issues with the Gigabyte RX 570 nor the ASUS Strix GTX 970.
 
+
 **Future changes:**
 1. Remove the NVME SSD, it's overkill and it's isolated in its own IOMMU group, and add a NVME to PCI x16 adapter to be able to have three fully passed through video cards. The Be Quiet! Dark Base Pro 700 allows one GPU to be mounted vertically and if picked correctly, the case can fit another GPU using the [adapter](https://www.aliexpress.com/item/Riser-PCIE-3-0-x16-To-M2-NGFF-NVMe-SSD-M-2-PCI-e-16x-Riser/32830793343.html?spm=2114.search0104.3.27.4fd972acoCIszM&ws_ab_test=searchweb0_0,searchweb201602_2_10065_10068_10130_10547_319_317_10548_10696_453_10084_454_10083_433_10618_431_10139_10307_537_536_10059_10884_10887_100031_321_322_10103,searchweb201603_51,ppcSwitch_0&algo_expid=7ef7a311-26f5-4c64-a18f-7943660471d2-4&algo_pvid=7ef7a311-26f5-4c64-a18f-7943660471d2&transAbTest=ae803_3).
-2. Make it fully headless once #1 is implemented.
+2. Make it fully headless and a true server once #1 is implemented.
+3. Upgrade the CPU to a 12 core Ryzen 3.
+
 
 **References:**
 - [VFIO tips and tricks](https://vfio.blogspot.com/2014/09/vfio-interrupts-and-how-to-coax-windows.html)
