@@ -170,8 +170,8 @@ Section "Device"
     BusID          "PCI:4:0:0"
 EndSection
 ```
-18. Profit? Not yet, some Windows guests might not have HDMI audio out. Identify the Device Instance Path from the Details tab of the device in Device Manager.  Run regedit and find the same path under HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\  After following down the tree using the Device Instance Path information, continue to follow down through "Device Parameters" and "Interrupt Management".  Here you will find that you either have or need to create a new key named "MessageSignaledInterruptProperties".  Within that key, find or create a DWORD value named "MSISupported".  The value should be 1 enable MSI or 0 to disable. Enabling MSI should fix HDMI audio out issues.
-19. Profit? Hell yea!
+19. Profit? Not yet, some Windows guests might not have HDMI audio out. Identify the Device Instance Path from the Details tab of the device in Device Manager.  Run regedit and find the same path under HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\  After following down the tree using the Device Instance Path information, continue to follow down through "Device Parameters" and "Interrupt Management".  Here you will find that you either have or need to create a new key named "MessageSignaledInterruptProperties".  Within that key, find or create a DWORD value named "MSISupported".  The value should be 1 enable MSI or 0 to disable. Enabling MSI should fix HDMI audio out issues.
+20. Profit? Hell yea!
 
 
 **Observations:**
