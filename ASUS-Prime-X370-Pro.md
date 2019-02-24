@@ -8,7 +8,7 @@ My ASUS Maximus IV Gene-Z system was repurposed for pure file server purposes (F
 - A powerful gaming rig.
 - A powerful Linux workstation.
 - File serving capability as backup for FreeNAS rig.
-- Has to fit in one case, one PC.
+- One PC to rule them all: has to fit in one case, with one single PC.
 
 
 **Hardware:**
@@ -33,7 +33,7 @@ My ASUS Maximus IV Gene-Z system was repurposed for pure file server purposes (F
 
 
 **Installation:**
-1. Install Ubuntu 18.10 Workstation. I added SSH and SMB in the installation options.
+1. Install Ubuntu 18.10 Workstation.
 2. Edit `/etc/default/grub` and change the **GRUB_CMDLINE_LINUX_DEFAULT** entry to:
 ```
 quiet amd_iommu=on iommu=pt kvm_amd.npt=1 rd.driver.pre=vfio-pci
